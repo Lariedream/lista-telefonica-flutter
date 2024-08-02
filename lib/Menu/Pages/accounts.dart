@@ -235,7 +235,7 @@ class _AccountsState extends State<Accounts> {
   void addAccount(BuildContext context) async {
     final telefoneStr = telefone.text;
     final nomeStr = nome.text;
-    final int telefoneInt = int.parse(telefone.text);
+    
 
     if (nomeStr.isEmpty) {
       final falha =
@@ -250,7 +250,8 @@ class _AccountsState extends State<Accounts> {
     if (!telefoneValido) {
       return;
     }
-
+    
+    final int telefoneInt = int.parse(telefone.text);
     bool isDuplicado = await handler.telefoneDuplicado(
         telefoneInt); // usa a função de verificação no banco de dados
 
