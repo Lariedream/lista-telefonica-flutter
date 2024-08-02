@@ -1,16 +1,26 @@
-# teste_dev
+Lista telefônica
 
-A new Flutter project.
+## Descrição
+Meu projeto utiliza o banco de dados SQLite e é desenvolvido em Dart utilizando o framework Flutter.
 
-## Getting Started
+## Requisitos
+- Visual Studio Code
+- Flutter SDK
+- Sqflite para SQLite
 
-This project is a starting point for a Flutter application.
+## Estrutura do Projeto
+-lib/: Contém o código principal do aplicativo.
+  -main.dart: Ponto de entrada do aplicativo.
+  -components/: Componentes reutilizáveis como botões e campos de entrada.
+  -Error_handling/: Implementações para tratamento e exibição de erros.
+  -Json/: Classes relacionadas a JSON e manipulação de dados.
+  -Menu/: Configuração e lógica para o menu do aplicativo.
+  -SQLite/: Gerenciamento do banco de dados SQLite.
+-assets/: Recursos estáticos como imagens e ícones.
 
-A few resources to get you started if this is your first Flutter project:
+## Uso
+Para iniciar o projeto, execute o aplicativo no Visual Studio Code. Aqui estão algumas funcionalidades principais:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Registro de Contatos: Adicione e gerencie contatos com nome e número de telefone.
+- Validação de Dados: Verifique se o número de telefone é único e válido.
+- Interface Gráfica: Utilize a interface gráfica do Flutter para uma experiência de usuário interativa.
