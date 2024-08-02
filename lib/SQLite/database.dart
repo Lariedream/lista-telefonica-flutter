@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:teste_dev/Json/account_jason.dart';
+import 'package:teste_dev/Json/account_json.dart';
 
 class DataBase {
   final dataBaseName = "larissa.db";

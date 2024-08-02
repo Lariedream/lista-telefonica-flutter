@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:teste_dev/Components/button.dart';
 import 'package:teste_dev/Components/colors.dart';
 import 'package:teste_dev/Components/input.dart';
-import 'package:teste_dev/Json/account_jason.dart';
+import 'package:teste_dev/Json/account_json.dart';
 import 'package:teste_dev/SQLite/database.dart';
+import 'package:teste_dev/Error_handling/tratamento_erro.dart';
 
 class Accounts extends StatefulWidget {
   const Accounts({super.key});
@@ -244,10 +245,10 @@ class _AccountsState extends State<Accounts> {
         telefoneInt); // usa a função de verificação no banco de dados
 
     if (isDuplicado) {
-      final mensagemErro =
-          mensagemErroTelDuplicado(); // usa minha função de msg de erro tel
+      final falha =
+          TelefoneDuplicadoFalha(); // Usa a classe de falha para telefone duplicado
       await mostrarAlertaErro(
-          context, mensagemErro); // usa minha função de caixinha de dialogo
+          context, falha.mensagem); // Mostra a mensagem de erro
       return;
     }
     var res = await handler.insertAccount(
@@ -273,17 +274,21 @@ class _AccountsState extends State<Accounts> {
     if (!telefoneValido) {
       return;
     }
-    final telefoneAtual = await handler.getTelefoneById(id); // Obtem o telefone atual do banco de dados
+    final telefoneAtual = await handler
+        .getTelefoneById(id); // Obtem o telefone atual do banco de dados
     final int telefoneInt = int.parse(telefoneStr);
 
-    bool telefoneMudou = telefoneAtual != telefoneInt; // Verifica se o telefone mudou
+    bool telefoneMudou =
+        telefoneAtual != telefoneInt; // Verifica se o telefone mudou
     if (telefoneMudou) {
-      bool isDuplicado = await handler.telefoneDuplicado(telefoneInt);    // Se o telefone mudou ele verifica se é duplicado
+      bool isDuplicado = await handler.telefoneDuplicado(
+          telefoneInt); // Se o telefone mudou ele verifica se é duplicado
 
       if (isDuplicado) {
-        final mensagemErro =
-            mensagemErroTelDuplicado(); // Usa a função de mensagem de erro para telefone duplicado
-        await mostrarAlertaErro(context, mensagemErro);
+        final falha =
+            TelefoneDuplicadoFalha(); // Usa a classe de falha para telefone duplicado
+        await mostrarAlertaErro(
+            context, falha.mensagem); // Mostra a mensagem de erro
         return;
       }
     }
@@ -303,16 +308,6 @@ class _AccountsState extends State<Accounts> {
         _onRefresh();
       });
     }
-  }
-
-  //mensagem do erro
-  String mensagemErroTelDuplicado() {
-    return 'O número de telefone já está em uso.';
-  }
-
-  //mensagem de caracter invalido
-  String caracterinvalido() {
-    return 'Por favor, insira um número válido, contendo apenas dígitos!';
   }
 
   //Caixa de dialogo
@@ -347,8 +342,10 @@ class _AccountsState extends State<Accounts> {
     final telefoneInt = int.tryParse(telefoneStr);
 
     if (telefoneInt == null || telefoneInt <= 0) {
-      final mensagemErro = caracterinvalido();
-      await mostrarAlertaErro(context, mensagemErro);
+      final falha =
+          CaracterInvalidoFalha(); // Usa a classe de falha para telefone inválido
+      await mostrarAlertaErro(
+          context, falha.mensagem); // Mostra a mensagem de erro
       return false;
     }
     return true;
