@@ -16,3 +16,10 @@ class CaracterInvalidoFalha extends TratamentoErro {
           'Por favor, insira um número válido, contendo apenas dígitos!'])
       : super(mensagem);
 }
+
+class NomeInvalidoFalha extends TratamentoErro {
+  NomeInvalidoFalha(
+      [String mensagem =
+          'Por favor, digite um nome válido'])
+      : super(mensagem);
+}

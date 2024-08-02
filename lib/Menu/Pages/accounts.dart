@@ -234,13 +234,23 @@ class _AccountsState extends State<Accounts> {
   //Adicionando conta
   void addAccount(BuildContext context) async {
     final telefoneStr = telefone.text;
+    final nomeStr = nome.text;
+    final int telefoneInt = int.parse(telefone.text);
+
+    if (nomeStr.isEmpty) {
+      final falha =
+          NomeInvalidoFalha(); // Usa a classe de falha para nome invalido
+      await mostrarAlertaErro(
+          context, falha.mensagem); // Mostra a mensagem de erro
+      return;
+    }
+
     bool telefoneValido =
         await validarTelefone(context, telefoneStr); //usa a função de validação
     if (!telefoneValido) {
       return;
     }
 
-    final int telefoneInt = int.parse(telefone.text);
     bool isDuplicado = await handler.telefoneDuplicado(
         telefoneInt); // usa a função de verificação no banco de dados
 
@@ -269,6 +279,16 @@ class _AccountsState extends State<Accounts> {
   //Editando conta
   void updateAccount(int id) async {
     final telefoneStr = telefone.text;
+    final nomeStr = nome.text;
+
+    if (nomeStr.isEmpty) {
+      final falha =
+          NomeInvalidoFalha(); // Usa a classe de falha para nome invalido
+      await mostrarAlertaErro(
+          context, falha.mensagem); // Mostra a mensagem de erro
+      return;
+    }
+
     bool telefoneValido = await validarTelefone(
         context, telefoneStr); // Usa a função de validação
     if (!telefoneValido) {
